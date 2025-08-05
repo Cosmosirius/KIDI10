@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iteration Case</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      .border-style {
+      @apply border-4 rounded-3xl shadow-lg border-slate-800;
+      }
+      .border-style2 {
+      @apply shadow-lg rounded-3xl bg-slate-800 text-white;
+        }
+      .border-style3 {
+      @apply border-4 rounded-lg border-slate-800;
+        }
+      .button-style {
+      @apply w-fit rounded-full bg-slate-800 text-white p-2 px-4 hover:bg-slate-500 transition;
+        }
+      .price {
+      @apply w-fit rounded-full bg-slate-800 text-white p-2 px-5;
+        } 
+    </style>
+  </head>
+  <body class="h-dvh items-center justify-center bg-slate-50">
+    <!-- POP UP -->
+    <div
+      id="popUpOverlay"
+      class="fixed inset-0 flex bg-slate-800/40 items-center justify-center z-999"
+    >
+      <div
+        class="w-3/5 border-style flex flex-col sm:flex-row gap-4 items-center mb-4 bg-slate-50 p-4"
+      >
+        <img class="w-40" src="assets/ibu.png" alt="ibu" />
+        <div class="flex flex-col items-center justify-center gap-4">
+          <q>Ibu titip belanja ya. Tolong belikan semua yang ada di catatan ini.
+            Setelah itu, kamu boleh pilih snack favoritmu sebagai reward karena
+            sudah bantu Ibu. Tapi pastikan snackmu sehat ya!</q>
+          <button id="startBtn" class="button-style">Mulai Belanja!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 1 -->
+    <div class="h-dvh m-4 relative" id="page1">
+      <!-- MISI -->
+      <div class="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-4 sm:gap-0 mb-5 px-5">
+        <div class="flex flex-col sm:text-start text-center sm:w-3/4 w-full">
+          <h1 class="text-2xl font-bold text-slate-800">Misi 1</h1>
+          <p class="text-sm text-slate-600">Pilih sesuai daftar belanja yang diberikan ibu</p>
+        </div>
+        <div class="w-full sm:w-auto flex justify-center sm:justify-end">
+          <button id="page1button" class="button-style px-4 py-2 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">
+            Selesai
+          </button>     
+        </div>
+      </div>
+        
+        <div class="flex flex-col md:flex-row w-full gap-2">
+          <!-- NOTE -->
+          <div class="border-style2 h-fit w-full md:w-1/4 p-6">
+              <h1 class="text-xl text-center">Daftar Belanja</h1>
+              <hr class="my-4 border-2 rounded-lg border-dashed"/>
+              <ul class="list-none pl-2">
+                <li>5 Mie Instan</li>
+                <li>1 Mentega</li>
+                <li>5 Telur</li>
+                <li>2 Saus</li>
+                <li>2 Susu</li>
+                <li>1 kaldu jamur</li>
+              </ul>
+              <br>
+              <p class="text-sm font-italic">Boleh ambil apapun yang kamu suka, asalkan sehat</p>
+          </div>
+          <!-- PILIHAN -->
+          <div class="flex flex-col gap-4 w-full border-style p-4">
+            <div class="flex items-center gap-2 border-style2 p-4">
+              <label for="searchInput" class="text-sm font-medium button-style">Cari</label>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Masukkan nama barang..."
+                class="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+              />
+            </div>
+            <div id="rack" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4"></div>
+          </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2 -->
+      <div id="page2" class="hidden h-dvh m-4 relative">
+        <!-- MISI -->
+        <div class="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-4 sm:gap-0 mb-5 px-5">
+          <div class="flex flex-col sm:text-start text-center sm:w-3/4 w-full">
+            <h1 class="text-2xl font-bold text-slate-800">Misi 2</h1>
+            <p class="text-sm text-slate-600">Melihat apa yang sudah kita pilih</p>
+          </div>
+          <div class="w-full sm:w-auto flex justify-center sm:justify-end">
+            <button id="page2button" class="button-style px-4 py-2 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">
+              Selesai
+            </button>     
+          </div>
+        </div>
+        
+        <div class="flex flex-col md:flex-row w-full gap-2">
+        <!-- NOTE -->
+        <div class="border-style2 h-fit w-full md:w-1/4 p-6">
+            <h1 class="text-xl text-center">Daftar Belanja</h1>
+            <hr class="my-4 border-2 rounded-lg border-dashed"/>
+            <ul class="list-none pl-2">
+              <li>5 Mie Instan</li>
+              <li>1 Mentega</li>
+              <li>5 Telur</li>
+              <li>2 Saus</li>
+              <li>2 Susu</li>
+              <li>1 kaldu jamur</li>
+            </ul>
+            <br>
+            <p class="text-sm font-italic">Boleh ambil apapun yang kamu suka, asalkan sehat</p>
+        </div>
+        <!-- PILIHAN KITA -->
+          <div class="flex flex-col gap-4 w-full border-style p-4">
+            <div id="pilihanRack" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4"></div>
+          </div>
+        </div>
+     </div>
+    <script src="script.js"></script>
+  </body>
+</html>
