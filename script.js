@@ -137,13 +137,69 @@ dataItem.forEach(item => {
   rack.appendChild(btn);
 });
 
-// tombol ke page 2
+// Fungsi untuk menampilkan halaman sesuai nama
+function showPage(pageId) {
+  const pages = ["page1", "page2", "page3"];
+  pages.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('hidden');
+  });
+  const active = document.getElementById(pageId);
+  if (active) active.classList.remove('hidden');
+}
+
+// Saat halaman dimuat, tampilkan halaman terakhir yang dibuka
+document.addEventListener("DOMContentLoaded", function () {
+  const lastPage = localStorage.getItem('activePage') || "page1";
+  showPage(lastPage);
+  renderPilihan();
+});
+
+// PAGE 1
 const page1Btn = document.getElementById("page1button");
 if (page1Btn) {
   page1Btn.onclick = () => {
-    document.getElementById("page1").classList.add('hidden');
-    document.getElementById("page2").classList.remove('hidden');
+    showPage("page2");
+    localStorage.setItem('activePage', 'page2');
     renderPilihan(); 
+  };
+}
+
+// PAGE 2
+const previousBtn = document.getElementsByClassName("previousBtn");
+if (previousBtn.length > 0) {
+  previousBtn[0].onclick = () => {
+    showPage("page1");
+    localStorage.setItem('activePage', 'page1');
+    renderPilihan(); 
+  };
+}
+
+const nextbtn = document.getElementsByClassName("nextBtn");
+if (nextbtn.length > 0) {
+  nextbtn[0].onclick = () => {
+    showPage("page3");
+    localStorage.setItem('activePage', 'page3');
+    renderPilihan();
+  };
+}
+
+// PAGE 3
+const previousBtn1 = document.getElementsByClassName("previousBtn1");
+if (previousBtn1.length > 0) {
+  previousBtn1[0].onclick = () => {
+    showPage("page2");
+    localStorage.setItem('activePage', 'page2');
+    renderPilihan(); 
+  };
+}
+
+const nextbtn1 = document.getElementsByClassName("nextBtn1");
+if (nextbtn1.length > 0) {
+  nextbtn1[0].onclick = () => {
+    showPage("page3");
+    localStorage.setItem('activePage', 'page3');
+    renderPilihan();
   };
 }
 
@@ -200,3 +256,62 @@ function renderPilihan() {
     pilihanRack.appendChild(btn);
   });
 }
+
+const forEach = document.getElementById('forEach');
+if (forEach) {
+  forEach.onclick = () => {
+    document.getElementById("pilihanRack").classList.remove('hidden');
+    renderPilihan()
+  }
+}
+
+const includesBtn = document.getElementById("includes");
+if (includesBtn) {
+  includesBtn.addEventListener("click", () => {
+    const listBelanja = [
+      { name: "Mie", qty: 5 },
+      { name: "Mentega", qty: 1 },
+      { name: "Telur", qty: 5 },
+      { name: "Saus", qty: 2 },
+      { name: "Susu", qty: 2 },
+      { name: "Kaldu Jamur", qty: 1 }
+    ];
+
+    const pilihan = JSON.parse(localStorage.getItem("pilihan")) || [];
+    const ulResult = document.querySelector("#hasilIncludes"); // tempat outputnya
+    ulResult.innerHTML = "";
+
+    listBelanja.forEach(item => {
+      const found = pilihan.find(p => p.name.toLowerCase() === item.name.toLowerCase());
+      let status = "";
+      if (found) {
+        if (found.qty >= item.qty) {
+          status = `<button class="highlight bg-green-200 px-2 rounded">ada</button>`;
+        } else {
+          status = `<button class="highlight bg-yellow-200 px-2 rounded">kurang (${found.qty}/${item.qty})</button>`;
+        }
+      } else {
+        status = `<button class="highlight bg-red-200 px-2 rounded">tidak ada</button>`;
+      }
+
+      // hanya tampilkan kalau ketemu di pilihan
+      if (found) {
+        const li = document.createElement("li");
+        li.className = "flex gap-2 items-center justify-between py-1";
+        li.innerHTML = `<p>${item.qty} ${item.name}</p> ${status}`;
+        ulResult.appendChild(li);
+      }
+    });
+  });
+}
+
+// RESET BUTTON
+const resetBtn = document.getElementById('resetBtn');
+if (resetBtn) {
+  resetBtn.onclick = () => {
+    localStorage.clear();
+    location.reload();
+  };
+}
+
+
